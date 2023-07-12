@@ -3,7 +3,7 @@
 {
     "name": "gridappsd-demo",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "image": "mcr.microsoft.com/devcontainers/python:0-3.8",
+    "image": "mcr.microsoft.com/devcontainers/python:0-3.10",
     "hostRequirements": {
         "cpus": 4
     },
