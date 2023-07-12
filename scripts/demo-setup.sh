@@ -1,1 +1,1 @@
-pip install -y gridappsd-field-bus --pre
+pip install gridappsd-field-bus --pre
