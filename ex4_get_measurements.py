@@ -26,7 +26,7 @@ cim = agents_mod.cim
 os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
 simulation_id = '886476680'
 
-config_folder = 'config_files_ieee123'
+config_folder = 'config_files_ieee13'
 
 class SampleFeederAgent(FeederAgent):
 
@@ -104,9 +104,9 @@ def _main():
                                                             secondary_area_message_bus_def,
                                                             agent_config,
                                                             simulation_id)
-            #if len(secondary_area_agent.secondary_area.addressable_equipment) == 0:
-            #    print(f"No addressable equipment in the area {secondary_area_agent.downstream_message_bus.id}. Disconnecting the agent.")
-            #    secondary_area_agent.disconnect()
+            if len(secondary_area_agent.secondary_area.addressable_equipment) == 0:
+                print(f"No addressable equipment in the area {secondary_area_agent.downstream_message_bus.id}. Disconnecting the agent.")
+                secondary_area_agent.disconnect()
             
 
     while True:

@@ -25,9 +25,9 @@ agents_mod.set_cim_profile(cim_profile)
 cim = agents_mod.cim
 
 os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
-simulation_id = '1703223889'
+simulation_id = '198927053'
 
-config_folder = 'config_files_ieee123'
+config_folder = 'config_files_ieee13'
 
 class SampleFeederAgent(FeederAgent):
 
@@ -38,6 +38,10 @@ class SampleFeederAgent(FeederAgent):
 
         super().__init__(upstream_message_bus_def, downstream_message_bus_def,
                          agent_config, None, simulation_id)
+        
+    def on_measurement(self, headers: Dict, message) -> None:
+        with open("feeder_measurements.txt", "a") as fp:
+            fp.write(json.dumps(message))
 
 class SampleSwitchAreaAgent(SwitchAreaAgent):
 
@@ -48,6 +52,10 @@ class SampleSwitchAreaAgent(SwitchAreaAgent):
 
         super().__init__(upstream_message_bus_def, downstream_message_bus_def,
                          agent_config, None, simulation_id)
+    
+    def on_measurement(self, headers: Dict, message) -> None:
+        with open(f"{self.switch_area.area_id}_measurements.txt", "a") as fp:
+            fp.write(json.dumps(message))
 
 class SampleSecondaryAreaAgent(SecondaryAreaAgent):
 
@@ -58,11 +66,33 @@ class SampleSecondaryAreaAgent(SecondaryAreaAgent):
 
         super().__init__(upstream_message_bus_def, downstream_message_bus_def,
                          agent_config, None, simulation_id)
+        
+        self.get_measurement_ids()
+        
+
+    def get_measurement_ids(self):
+
+        self.measurement_ids = []
+        network_area = self.secondary_area
+        if cim.PowerElectronicsConnection in network_area.typed_catalog:
+            network_area.get_all_attributes(cim.PowerElectronicsConnection)
+            network_area.get_all_attributes(cim.PowerElectronicsConnectionPhase)
+            network_area.get_all_attributes(cim.Terminal)
+            network_area.get_all_attributes(cim.Analog)
+
+            for pec in network_area.typed_catalog[cim.PowerElectronicsConnection].values():
+                for meas in pec.Measurements:
+                    print('Measurement: ', meas.name, meas.mRID)
+                    print('type:', meas.measurementType, 'phases:', meas.phases)
+                    self.measurement_ids.append(meas.mRID)
+
 
     def on_measurement(self, headers: Dict, message):
-        print(f"\n\n Received measurements at secondary agent {self.secondary_area.area_id}: \n{message}")
-        with open("secondary.txt", "a") as fp:
-            fp.write(json.dumps(message))
+        for measurement_id in message.keys():
+            if measurement_id in self.measurement_ids:
+                print(f"\n\n Received measurements at secondary agent {self.secondary_area.area_id}: \n{message}")
+                with open("secondary.txt", "a") as fp:
+                    fp.write(json.dumps(message))
 
 def _main():
 
@@ -97,30 +127,7 @@ def _main():
                                                             secondary_area_message_bus_def,
                                                             agent_config,
                                                             simulation_id)
-            if len(secondary_area_agent.secondary_area.addressable_equipment) == 0:
-                print(f"No addressable equipment in the area {secondary_area_agent.downstream_message_bus.id}. Disconnecting the agent.")
-                secondary_area_agent.disconnect()
-            else:
-                network_area = secondary_area_agent.secondary_area
-                if cim.ACLineSegment in network_area.typed_catalog:
-                    network_area.get_all_attributes(cim.ACLineSegment)
-                    network_area.get_all_attributes(cim.ACLineSegmentPhase)
-                    network_area.get_all_attributes(cim.Terminal)
-
-                    line_ids = list(network_area.typed_catalog[cim.ACLineSegment].keys())
-                    for line_id in line_ids:
-                        line = network_area.typed_catalog[cim.ACLineSegment][line_id]
-                        print('\n line mrid: ', line_id)
-                        print('line name:', line.name)
-                        print('bus 1: ', line.Terminals[0].ConnectivityNode.name,
-                            line.Terminals[0].ConnectivityNode.mRID)
-                        print('bus 2: ', line.Terminals[1].ConnectivityNode.name,
-                            line.Terminals[1].ConnectivityNode.mRID)
-                        for line_phs in line.ACLineSegmentPhases:
-                            print('phase ', line_phs.phase, ': ', line_phs.mRID)
-                else:
-                    print('no ACLineSegment objects in area')
-            
+        
 
     while True:
         try:

@@ -24,7 +24,7 @@ cim = agents_mod.cim
 
 os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
 
-config_folder = 'config_files_ieee123'
+config_folder = 'config_files_ieee13'
 
 class SampleFeederAgent(FeederAgent):
 

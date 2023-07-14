@@ -1,6 +1,9 @@
 '''
 Exercise : Check the available context (localised and downstream information) that Feeder area agent has.
 
+todo: context for switch and secondary area 
+
+
 Before Running:
 - Set os.environ['GRIDAPPSD_ADDRESS'] to the ipaddress of the system running GridAPPS-D platform before running example.
 '''
@@ -11,7 +14,7 @@ import time
 
 import gridappsd.field_interface.agents.agents as agents_mod
 from cimgraph.data_profile import CIM_PROFILE
-from gridappsd.field_interface.agents import FeederAgent
+from gridappsd.field_interface.agents import FeederAgent, SwitchAreaAgent
 from gridappsd.field_interface.interfaces import MessageBusDefinition
 
 from typing import Dict
@@ -24,7 +27,7 @@ cim = agents_mod.cim
 
 os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
 
-config_folder = 'config_files_ieee123'
+config_folder = 'config_files_ieee13'
 
 class SampleFeederAgent(FeederAgent):
 
@@ -36,6 +39,16 @@ class SampleFeederAgent(FeederAgent):
         super().__init__(upstream_message_bus_def, downstream_message_bus_def,
                          agent_config, None, None)
 
+class SampleSwitchAreaAgent(SwitchAreaAgent):
+
+    def __init__(self,
+                 upstream_message_bus_def: MessageBusDefinition,
+                 downstream_message_bus_def: MessageBusDefinition,
+                 agent_config):
+
+        super().__init__(upstream_message_bus_def, downstream_message_bus_def,
+                         agent_config, None, None)
+        
 def _main():
 
     agent_config = {
@@ -51,7 +64,7 @@ def _main():
                                      feeder_message_bus_def, 
                                      agent_config)
     
-    
+
     print("\n Addressable equipments: \n")
     for equipment_id in feeder_agent.feeder_area.addressable_equipment:
         print(f"{type(feeder_agent.feeder_area.addressable_equipment[equipment_id]).__name__} : {equipment_id}")
@@ -66,9 +79,26 @@ def _main():
         print(f"{switch_area.area_id} : {switch_area.boundary_switches}")
 
     print("\n Unaddressable equipments: \n")
-    Path("output.txt").write_text(str(feeder_agent.feeder_area.unaddressable_equipment))
     for equipment_id in feeder_agent.feeder_area.unaddressable_equipment:
         print(f"{feeder_agent.feeder_area.unaddressable_equipment[equipment_id].name} : {equipment_id}")
+
+    
+    switch_area_message_bus_def = MessageBusDefinition.load(f"{config_folder}/switch_area_message_bus_0.yml")
+    print("Creating switch area agent " +str(switch_area.area_id))
+    switch_area_agent = SampleSwitchAreaAgent(feeder_message_bus_def,
+                                              switch_area_message_bus_def,
+                                              agent_config)
+
+    print("\n Addressable equipments in switch area: \n")
+    for equipment_id in switch_area_agent.switch_area.addressable_equipment:
+        print(f"{type(switch_area_agent.switch_area.addressable_equipment[equipment_id]).__name__} : {equipment_id}")
+
+    print("\n Secondary Areas: \n")
+    for switch_area in feeder_agent.feeder_area.switch_areas:
+        print(f"{switch_area.area_id} : {switch_area.boundary_switches}")
+
+
+    
     
 if __name__ == "__main__":
     _main()
