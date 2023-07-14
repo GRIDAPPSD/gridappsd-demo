@@ -31,6 +31,11 @@
             }
         }
     },
+    "remoteEnv": {
+        "GRIDAPPSD_USER": "app_user",
+        "GRIDAPPSD_PASSWORD": "1234App",
+        "GRIDAPPSD_ADDRESS": "gridappsd"
+    },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [9000],
     // Use 'portsAttributes' to set default properties for specific forwarded ports. 
