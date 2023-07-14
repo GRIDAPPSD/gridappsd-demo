@@ -1,0 +1,1 @@
+sudo echo "54.184.236.31 gridappsd" >> /etc/hosts
