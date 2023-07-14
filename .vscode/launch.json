@@ -5,12 +5,116 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Exercise 1",
+            "type": "python",
+            "request": "launch",
+            "program": "ex1_create_feeder_area_agent.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 2.1",
+            "type": "python",
+            "request": "launch",
+            "program": "ex2.1_get_feeder_agent_context.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 2.2",
+            "type": "python",
+            "request": "launch",
+            "program": "ex2.2_get_switch_agent_context.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 2.3",
+            "type": "python",
+            "request": "launch",
+            "program": "ex2.3_get_secondary_agent_context.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 3",
+            "type": "python",
+            "request": "launch",
+            "program": "ex3_create_switch_and_secondary_area_agents.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 4",
+            "type": "python",
+            "request": "launch",
+            "program": "ex4_get_measurements.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 5",
+            "type": "python",
+            "request": "launch",
+            "program": "ex5_filter_measurements.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
+            "name": "Exercise 6",
+            "type": "python",
+            "request": "launch",
+            "program": "ex6_publish_upstream.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "GRIDAPPSD_USER": "app_user",
+                "GRIDAPPSD_PASSWORD": "1234App",
+                "GRIDAPPSD_ADDRESS": "gridappsd"
+            }
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
-        }
+        },
     ]
 }
