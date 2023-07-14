@@ -23,7 +23,6 @@ agents_mod.set_cim_profile(cim_profile)
 
 cim = agents_mod.cim
 
-os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
 simulation_id = '886476680'
 
 config_folder = 'config_files_ieee13'
