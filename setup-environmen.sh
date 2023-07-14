@@ -1,1 +1,3 @@
-sudo echo "54.184.236.31 gridappsd" >> /etc/hosts
+IPADDRESS="54.184.236.31"
+
+sudo echo "${IPADDRESS} gridappsd" >> /etc/hosts
