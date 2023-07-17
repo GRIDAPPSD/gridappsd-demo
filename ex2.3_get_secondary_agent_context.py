@@ -49,7 +49,7 @@ def _main():
                                                     secondary_area_message_bus_def,
                                                     agent_config)
     
-    print("\n Addressable equipments in switch area: \n")
+    print("\n Addressable equipments in secondary area: \n")
     for equipment_id in secondary_area_agent.secondary_area.addressable_equipment:
         print(f"{type(secondary_area_agent.secondary_area.addressable_equipment[equipment_id]).__name__} : {equipment_id}")
 
