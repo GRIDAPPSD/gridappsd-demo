@@ -1,11 +1,8 @@
 '''
 Exercise : Check the available context (localised and downstream information) that Feeder area agent has.
 
-todo: context for switch and secondary area 
-
-
 Before Running:
-- Set os.environ['GRIDAPPSD_ADDRESS'] to the ipaddress of the system running GridAPPS-D platform before running example.
+- Execute ./setup_environment.sh with provided ipaddress of the system running GridAPPS-D platform.
 '''
 
 import os
@@ -79,24 +76,7 @@ def _main():
     print("\n Unaddressable equipments: \n")
     for equipment_id in feeder_agent.feeder_area.unaddressable_equipment:
         print(f"{feeder_agent.feeder_area.unaddressable_equipment[equipment_id].name} : {equipment_id}")
-
-    
-    switch_area_message_bus_def = MessageBusDefinition.load(f"{config_folder}/switch_area_message_bus_0.yml")
-    print("Creating switch area agent " +str(switch_area.area_id))
-    switch_area_agent = SampleSwitchAreaAgent(feeder_message_bus_def,
-                                              switch_area_message_bus_def,
-                                              agent_config)
-
-    print("\n Addressable equipments in switch area: \n")
-    for equipment_id in switch_area_agent.switch_area.addressable_equipment:
-        print(f"{type(switch_area_agent.switch_area.addressable_equipment[equipment_id]).__name__} : {equipment_id}")
-
-    print("\n Secondary Areas: \n")
-    for switch_area in feeder_agent.feeder_area.switch_areas:
-        print(f"{switch_area.area_id} : {switch_area.boundary_switches}")
-
-
-    
+   
     
 if __name__ == "__main__":
     _main()

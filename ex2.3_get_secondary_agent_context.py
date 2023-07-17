@@ -1,11 +1,8 @@
 '''
-Exercise : Check the available context (localised and downstream information) that Feeder area agent has.
-
-todo: context for switch and secondary area 
-
+Exercise : Check the available context (localised and downstream information) that Secondary area agent has.
 
 Before Running:
-- Set os.environ['GRIDAPPSD_ADDRESS'] to the ipaddress of the system running GridAPPS-D platform before running example.
+- Execute ./setup_environment.sh with provided ipaddress of the system running GridAPPS-D platform.
 '''
 
 import os

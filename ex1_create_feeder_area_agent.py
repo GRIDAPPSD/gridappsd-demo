@@ -2,7 +2,7 @@
 Exercise: Create a basic distributed agent at Feeder area level 
 
 Before Running:
-- Set os.environ['GRIDAPPSD_ADDRESS'] to the ipaddress of the system running GridAPPS-D platform before running example.
+- Execute ./setup_environment.sh with provided ipaddress of the system running GridAPPS-D platform.
 '''
 
 import os

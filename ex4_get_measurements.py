@@ -1,9 +1,9 @@
 '''
-Exercise : Receive simulated device measurements ar Secondary area agent 
+Exercise : Receive simulated device measurements at all agents 
 
 Before Running:
-- Set os.environ['GRIDAPPSD_ADDRESS'] to the ipaddress of the system running GridAPPS-D platform before running example.
-- Set the simulation_id to a running simulation in the GridAPPS-D platform
+- Execute ./setup_environment.sh with provided ipaddress of the system running GridAPPS-D platform.
+- Set the simulation_id below to the provided running simulation id in the GridAPPS-D platform
 '''
 import json
 import os
